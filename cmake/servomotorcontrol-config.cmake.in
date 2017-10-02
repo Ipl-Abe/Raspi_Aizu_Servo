@@ -1,0 +1,54 @@
+# ServoMotorControl CMake config file
+#
+# This file sets the following variables:
+# ServoMotorControl_FOUND - Always TRUE.
+# ServoMotorControl_INCLUDE_DIRS - Directories containing the ServoMotorControl include files.
+# ServoMotorControl_IDL_DIRS - Directories containing the ServoMotorControl IDL files.
+# ServoMotorControl_LIBRARIES - Libraries needed to use ServoMotorControl.
+# ServoMotorControl_DEFINITIONS - Compiler flags for ServoMotorControl.
+# ServoMotorControl_VERSION - The version of ServoMotorControl found.
+# ServoMotorControl_VERSION_MAJOR - The major version of ServoMotorControl found.
+# ServoMotorControl_VERSION_MINOR - The minor version of ServoMotorControl found.
+# ServoMotorControl_VERSION_REVISION - The revision version of ServoMotorControl found.
+# ServoMotorControl_VERSION_CANDIDATE - The candidate version of ServoMotorControl found.
+
+message(STATUS "Found ServoMotorControl-@PROJECT_VERSION@")
+set(ServoMotorControl_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ServoMotorControl_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ServoMotorControl_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ServoMotorControl_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ServoMotorControl_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ServoMotorControl_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ServoMotorControl_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ServoMotorControl_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ServoMotorControl_VERSION @PROJECT_VERSION@)
+set(ServoMotorControl_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ServoMotorControl_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ServoMotorControl_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ServoMotorControl_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
