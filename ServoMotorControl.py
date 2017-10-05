@@ -226,12 +226,12 @@ class ServoMotorControl(OpenRTM_aist.DataFlowComponentBase):
 		self.err=3
 		servo=0
 		if self._ServoMotor1In.isNew():
-			servo =self._d_ServoMotor1.data
+			servo = self._d_ServoMotor1.data
 			#サーボモータ1値取得
 			self._d_ServoMotor1 = self._ServoMotor1In.read()
-			if self._d_ServoMotor1.data >= 0 and self._d_ServoMotor1.data <= 180 and servo !=self._d_ServoMotor1.data :
+			if servo >= 0 and servo <= 180:
 				self.err=4
-				duty_int= int(self.calc_duty(self._d_ServoMotor1.data))
+				duty_int= int(self.calc_duty(servo))
 				self.bus.write_i2c_block_data(self.PCA9685_ADDRESS,14,[0, 0,  duty_int & 0xFF , duty_int >>8])
 			else :
 				print "servmotor1 value limite "
@@ -240,7 +240,7 @@ class ServoMotorControl(OpenRTM_aist.DataFlowComponentBase):
 			servo =self._d_ServoMotor2.data
 			#サーボモータ2値取得
 			self._d_ServoMotor2 = self._ServoMotor2In.read()
-			if self._d_ServoMotor2.data >= 0 and self._d_ServoMotor2.data <= 180 and servo !=self._d_ServoMotor2.data:
+			if self._d_ServoMotor2.data >= 0 and self._d_ServoMotor2.data <= 180 :wq:
 				self.err=5
 				duty_int= int(self.calc_duty(self._d_ServoMotor2.data))
 				self.bus.write_i2c_block_data(self.PCA9685_ADDRESS,10,[0, 0, duty_int & 0xFF , duty_int >>8])
@@ -251,7 +251,7 @@ class ServoMotorControl(OpenRTM_aist.DataFlowComponentBase):
 			servo =self._d_ServoMotor3.data
 			#サーボモータ1値取得
 			self._d_ServoMotor3 = self._ServoMotor3In.read()
-			if self._d_ServoMotor3.data >= 0 and self._d_ServoMotor3.data <= 180 and servo !=self._d_ServoMotor3.data:
+			if self._d_ServoMotor3.data >= 0 and self._d_ServoMotor3.data <= 180 :
 				self.err=6
 				duty_int= int(self.calc_duty(self._d_ServoMotor3.data))
 				self.bus.write_i2c_block_data(self.PCA9685_ADDRESS,6,[0, 0, duty_int & 0xFF , duty_int >>8])
@@ -263,7 +263,7 @@ class ServoMotorControl(OpenRTM_aist.DataFlowComponentBase):
 	
 	def calc_duty(self,angle):
     		duty = 0.0
-    		duty = 102 + (492 - 102)/180 * angle
+    		duty = 100 + (400 - 100)/180 * angle
 
     		return duty	
 	
@@ -361,4 +361,5 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
 
